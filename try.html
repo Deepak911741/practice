@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Validation</title>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+    <h1>Form Validation</h1>
+    <form id="myForm" onsubmit="return validateForm()">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name"><br>
+        <span id="nameError" class="error"></span><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email"><br>
+        <span id="emailError" class="error"></span><br>
+
+        <label for="password">Password:</label><br>
+        <input type="password" id="password" name="password"><br>
+        <span id="passwordError" class="error"></span><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        function validateForm() {
+            try {
+                let name = document.getElementById('name').value;
+                let email = document.getElementById('email').value;
+                let password = document.getElementById('password').value;
+
+                let nameError = document.getElementById('nameError');
+                let emailError = document.getElementById('emailError');
+                let passwordError = document.getElementById('passwordError');
+
+                let isValid = true;
+
+                // Reset error messages
+                nameError.textContent = '';
+                emailError.textContent = '';
+                passwordError.textContent = '';
+
+                // Validate name
+                if (name.trim() === '') {
+                    throw new Error('Name is required');
+                }
+
+                // Validate email
+                if (email.trim() === '') {
+                    throw new Error('Email is required');
+                } else if (!isValidEmail(email)) {
+                    throw new Error('Invalid email format');
+                }
+
+                // Validate password
+                if (password.trim() === '') {
+                    throw new Error('Password is required');
+                }
+
+                return isValid;
+            } catch (error) {
+                switch (error.message) {
+                    case 'Name is required':
+                        document.getElementById('nameError').textContent = error.message;
+                        break;
+                    case 'Email is required':
+                    case 'Invalid email format':
+                        document.getElementById('emailError').textContent = error.message;
+                        break;
+                    case 'Password is required':
+                        document.getElementById('passwordError').textContent = error.message;
+                        break;
+                    default:
+                        console.error(error);
+                }
+                return false;
+            }
+        }
+
+        function isValidEmail(email) {
+            // Basic email validation regex
+            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+    </script>
+</body>
+</html>

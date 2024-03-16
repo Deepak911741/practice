@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery Animation Example</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        background-color: #f9f9f9;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    #box {
+        width: 100px;
+        height: 100px;
+        background-color: #007bff;
+        margin-top: 20px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>jQuery Animation Example</h1>
+        <p>Click the buttons below to see different animation effects:</p>
+        <button id="animateBtn">Animate</button>
+        <button id="stopBtn">Stop</button>
+        <button id="slideToggleBtn">Slide Toggle</button>
+        <div id="box"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#animateBtn").click(function() {
+                $("#box").animate({
+                    left: '250px',
+                    opacity: '0.5',
+                    height: '150px',
+                    width: '150px'
+                }, 1000);
+            });
+
+            $("#stopBtn").click(function() {
+                $("#box").stop();
+            });
+
+            $("#slideToggleBtn").click(function() {
+                $("#box").slideToggle();
+            });
+        });
+    </script>
+</body>
+</html>

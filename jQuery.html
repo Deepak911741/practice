@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery Effects and AJAX Example</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>jQuery Effects and AJAX Example</h1>
+        <p>Click the button below to fade out the text, send a request to the server, and display the response.</p>
+        <button id="submitBtn">Submit</button>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#submitBtn").click(function() {
+                // Fade out the button and text
+                $(this).fadeOut();
+                $("p").fadeOut();
+
+                // Send an AJAX request
+                $.ajax({
+                    url: "https://jsonplaceholder.typicode.com/posts/1",
+                    method: "GET",
+                    success: function(data) {
+                        // Display the response
+                        $("#response").html("<h2>Response:</h2><pre>" + JSON.stringify(data, null, 2) + "</pre>");
+                    },
+                    error: function(xhr, status, error) {
+                        // Display an error message
+                        $("#response").html("<p>Error loading data</p>");
+                    },
+                    complete: function() {
+                        // Fade in the response
+                        $("#response").fadeIn();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
